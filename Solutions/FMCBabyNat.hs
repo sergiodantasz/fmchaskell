@@ -35,12 +35,12 @@ infixl 6 +
 -- Output: O means False, S O means True
 isZero :: Nat -> Nat
 isZero O = S O
-isZero x = O
+isZero n = O
 
 -- pred is the predecessor but we define zero's to be zero
 pred :: Nat -> Nat
 pred O = O
-pred (S x) = x
+pred (S n) = n
 
 -- Output: O means False, S O means True
 even :: Nat -> Nat
