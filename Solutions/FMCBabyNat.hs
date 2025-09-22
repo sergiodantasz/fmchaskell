@@ -57,7 +57,7 @@ odd n = isZero (even n)
 -- when "normal" subtraction would return a negative number.
 monus :: Nat -> Nat -> Nat
 monus n O = n
-monus O m = O
+monus O _ = O
 monus (S n) (S m) = monus n m
 
 (-*) :: Nat -> Nat -> Nat
