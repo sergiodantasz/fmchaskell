@@ -90,6 +90,7 @@ lt (S n) (S m) = lt n m
 -- quotient
 (/) :: Nat -> Nat -> Nat
 (/) _ O = undefined
+(/) O _ = O
 (/) n m = case lt n m of
   S O -> O
   O -> S O + ((n -* m) / m)
