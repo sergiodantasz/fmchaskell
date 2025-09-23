@@ -80,7 +80,7 @@ infixr 8 ^
 -- less than
 -- Output: O means False, S O means True
 lt :: Nat -> Nat -> Nat
-lt O (S O) = S O
+lt O (S _) = S O
 lt _ O = O
 lt (S n) (S m) = lt n m
 
@@ -106,10 +106,14 @@ infixl 7 /
 
 -- divides
 -- just for a change, we start by defining the "symbolic" operator
--- and then define `devides` as a synonym to it
+-- and then define `divides` as a synonym to it
 -- again, outputs: O means False, S O means True
 (|||) :: Nat -> Nat -> Nat
-(|||) = undefined
+(|||) O b = isZero b
+(|||) a b = isZero (b % a)
+
+divides :: Nat -> Nat -> Nat
+divides = (|||)
 
 -- x `absDiff` y = |x - y|
 -- (Careful here: this - is the actual minus operator we know from the integers!)
