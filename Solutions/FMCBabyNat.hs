@@ -3,16 +3,12 @@ module FMCBabyNat where
 -- Do not alter this import!
 import Prelude (Eq (..), Show (..), undefined)
 
--- Define evenerything that is undefined,
--- without using standard Haskell functions.
--- (Hint: recursion is your friend!)
-
--- define a new data type called Nat by listing all forms
+-- Define a new data type called Nat by listing all forms
 data Nat = O | S Nat
   deriving (Eq, Show)
 
--- some sugar
-zero, one, two, three, four, five, six, seven, eight :: Nat
+-- Syntactic sugar for some successors
+zero, one, two, three, four, five, six, seven, eight, nine, ten :: Nat
 zero = O
 one = S zero
 two = S one
@@ -22,123 +18,146 @@ five = S four
 six = S five
 seven = S six
 eight = S seven
+nine = S eight
+ten = S nine
 
--- addition
+-- Sugar for `yes` and `no`
+yes, no :: Nat
+yes = one
+no = zero
+
+-- Addition
 (+) :: Nat -> Nat -> Nat
 n + O = n
 n + S m = S (n + m)
 
--- syntactic associativity: L
--- syntactic precedence: 6
+-- Syntactic associativity: L (left)
+-- Syntactic precedence: 6
 infixl 6 +
 
--- Output: O means False, S O means True
+-- Output: O (no) means False, S O (yes) means True
 isZero :: Nat -> Nat
-isZero O = S O
-isZero n = O
+isZero O = yes
+isZero n = no
 
--- pred is the predecessor but we define zero's to be zero
+-- Predecessor
+-- We define zero's pred to be zero
 pred :: Nat -> Nat
 pred O = O
 pred (S n) = n
 
--- Output: O means False, S O means True
+-- Even
+-- Output: O (no) means False, S O (yes) means True
 even :: Nat -> Nat
-even O = S O
-even (S O) = O
+even O = yes
+even (S O) = no
 even (S (S n)) = even n
 
+-- Odd
+-- Output: O (no) means False, S O (yes) means True
 odd :: Nat -> Nat
 odd n = isZero (even n)
 
--- This is called the dotminus or monus operator
--- (also: proper subtraction, arithmetic subtraction, ...).
--- It behaves like subtraction, except that it returns 0
--- when "normal" subtraction would return a negative number.
-monus :: Nat -> Nat -> Nat
-monus n O = n
-monus O _ = O
-monus (S n) (S m) = monus n m
-
+-- Monus
+-- This is called the dotminus or monus operator (also: proper subtraction, arithmetic subtraction, ...).
+-- It behaves like subtraction, except that it returns 0 when "normal" subtraction would return a negative number.
 (-*) :: Nat -> Nat -> Nat
-(-*) = monus
+n -* O = n
+O -* _ = O
+(S n) -* (S m) = n -* m
 
--- multiplication
+monus :: Nat -> Nat -> Nat
+monus = (-*)
+
+infixl 6 -*
+
+-- Multiplication
 (*) :: Nat -> Nat -> Nat
-(*) _ O = O
-(*) n (S m) = (n * m) + n
+_ * O = O
+n * (S m) = (n * m) + n
 
 infixl 7 *
 
--- exponentiation
+-- Exponentiation
 (^) :: Nat -> Nat -> Nat
-(^) n O = S O
-(^) n (S m) = n ^ m * n
+n ^ O = S O
+n ^ (S m) = n ^ m * n
 
 infixr 8 ^
 
--- less than
--- Output: O means False, S O means True
-lt :: Nat -> Nat -> Nat
-lt O (S _) = S O
-lt _ O = O
-lt (S n) (S m) = lt n m
-
+-- Less than
+-- Output: O (no) means False, S O (yes) means True
 (<) :: Nat -> Nat -> Nat
-(<) = lt
+O < (S _) = yes
+_ < O = no
+(S n) < (S m) = n < m
 
--- quotient
+lt :: Nat -> Nat -> Nat
+lt = (<)
+
+infix 4 <
+
+-- Quotient
 (/) :: Nat -> Nat -> Nat
-(/) _ O = undefined
-(/) O _ = O
-(/) n m = case lt n m of
-            S O -> O
-            O   -> S O + ((n -* m) / m)
+_ / O = undefined
+O / _ = O
+n / m = case n < m of
+          S O -> O
+          O   -> S O + (n -* m) / m
 
 infixl 7 /
 
--- remainder
+-- Remainder
 (%) :: Nat -> Nat -> Nat
-(%) _ O = undefined
-(%) a b = case lt a b of
-            S O -> a
-            O   -> (a -* b) % b
+_ % O = undefined
+n % m = case n < m of
+          S O -> n
+          O   -> (n -* m) % m
 
--- divides
--- just for a change, we start by defining the "symbolic" operator
--- and then define `divides` as a synonym to it
--- again, outputs: O means False, S O means True
+infixl 7 %
+
+-- Divides
+-- Just for a change, we start by defining the "symbolic" operator and then define `divides` as a synonym to it.
+-- Output: O (no) means False, S O (yes) means True
 (|||) :: Nat -> Nat -> Nat
-(|||) O b = isZero b
-(|||) a b = isZero (b % a)
+O ||| n = isZero n
+n ||| m = isZero (m % n)
 
 divides :: Nat -> Nat -> Nat
 divides = (|||)
 
--- x `absDiff` y = |x - y|
--- (Careful here: this - is the actual minus operator we know from the integers!)
-absDiff :: Nat -> Nat -> Nat
-absDiff x y = case lt x y of
-                S O -> y -* x
-                O   -> x -* y
+infix 4 |||
 
+-- Absolute difference
+-- n |-| m = |n - m|
+-- (Careful here: this (-) is the actual minus operator we know from the integers!)
 (|-|) :: Nat -> Nat -> Nat
-(|-|) = absDiff
+n |-| m = case n < m of
+            S O -> m -* n
+            O   -> n -* m
 
+absDiff :: Nat -> Nat -> Nat
+absDiff = (|-|)
+
+infixl 6 |-|
+
+-- Factorial
 fact :: Nat -> Nat
 fact O = S O
 fact (S n) = S n * fact n
 
--- signum of a number (-1, 0, or 1)
+-- Signum of a number (-1, 0, or 1)
+-- (We won't use -1 because we're working only with the naturals!)
 sg :: Nat -> Nat
-sg O = O
-sg _ = S O
+sg O = zero
+sg _ = one
 
--- lo b a is the floor of the logarithm base b of a
+-- Logarithm
+-- lo n m is the floor of the logarithm base n of m
 lo :: Nat -> Nat -> Nat
 lo O _ = undefined
 lo (S O) _ = undefined
 lo _ O = undefined
-lo b a = case lt a b of
-          S O -> O
-          O   -> S O + lo b (a / b)
+lo n m = case m < n of
+           S O -> O
+           O   -> S O + lo n (m / n)
