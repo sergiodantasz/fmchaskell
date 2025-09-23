@@ -118,7 +118,9 @@ divides = (|||)
 -- x `absDiff` y = |x - y|
 -- (Careful here: this - is the actual minus operator we know from the integers!)
 absDiff :: Nat -> Nat -> Nat
-absDiff = undefined
+absDiff x y = case lt x y of
+                S O -> y -* x
+                O   -> x -* y
 
 (|-|) :: Nat -> Nat -> Nat
 (|-|) = absDiff
