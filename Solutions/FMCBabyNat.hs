@@ -92,8 +92,8 @@ lt (S n) (S m) = lt n m
 (/) _ O = undefined
 (/) O _ = O
 (/) n m = case lt n m of
-  S O -> O
-  O -> S O + ((n -* m) / m)
+            S O -> O
+            O   -> S O + ((n -* m) / m)
 
 infixl 7 /
 
@@ -131,5 +131,5 @@ lo O _ = undefined
 lo (S O) _ = undefined
 lo _ O = undefined
 lo b a = case lt a b of
-  S O -> O
-  O -> S O + lo b (a / b)
+          S O -> O
+          O   -> S O + lo b (a / b)
