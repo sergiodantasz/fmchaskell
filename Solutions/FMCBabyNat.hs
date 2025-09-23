@@ -77,6 +77,16 @@ infixl 7 *
 
 infixr 8 ^
 
+-- less than
+-- Output: O means False, S O means True
+lt :: Nat -> Nat -> Nat
+lt O (S O) = S O
+lt _ O = O
+lt (S n) (S m) = lt n m
+
+(<) :: Nat -> Nat -> Nat
+(<) = lt
+
 -- quotient
 (/) :: Nat -> Nat -> Nat
 (/) = undefined
