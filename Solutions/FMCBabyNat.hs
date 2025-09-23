@@ -99,7 +99,10 @@ infixl 7 /
 
 -- remainder
 (%) :: Nat -> Nat -> Nat
-(%) = undefined
+(%) _ O = undefined
+(%) a b = case lt a b of
+            S O -> a
+            O   -> (a -* b) % b
 
 -- divides
 -- just for a change, we start by defining the "symbolic" operator
