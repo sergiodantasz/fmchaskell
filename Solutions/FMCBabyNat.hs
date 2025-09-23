@@ -89,7 +89,12 @@ lt (S n) (S m) = lt n m
 
 -- quotient
 (/) :: Nat -> Nat -> Nat
-(/) = undefined
+(/) n O = undefined
+(/) n m = case lt n m of
+  S O -> O
+  O -> S O + ((n -* m) / m)
+
+infixl 7 /
 
 -- remainder
 (%) :: Nat -> Nat -> Nat
