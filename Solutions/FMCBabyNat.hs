@@ -80,7 +80,7 @@ infixl 7 *
 
 -- Exponentiation
 (^) :: Nat -> Nat -> Nat
-n ^ O = S O
+_ ^ O = S O
 n ^ (S m) = n ^ m * n
 
 infixr 8 ^
