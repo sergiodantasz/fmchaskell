@@ -101,18 +101,20 @@ infix 4 <
 (/) :: Nat -> Nat -> Nat
 _ / O = undefined
 O / _ = O
-n / m = case n < m of
-          S O -> O
-          O   -> S O + (n -* m) / m
+n / m =
+  case n < m of
+    S O -> O
+    O   -> S O + (n -* m) / m
 
 infixl 7 /
 
 -- Remainder
 (%) :: Nat -> Nat -> Nat
 _ % O = undefined
-n % m = case n < m of
-          S O -> n
-          O   -> (n -* m) % m
+n % m =
+  case n < m of
+    S O -> n
+    O   -> (n -* m) % m
 
 infixl 7 %
 
@@ -132,9 +134,10 @@ infix 4 |||
 -- n |-| m = |n - m|
 -- (Careful here: this (-) is the actual minus operator we know from the integers!)
 (|-|) :: Nat -> Nat -> Nat
-n |-| m = case n < m of
-            S O -> m -* n
-            O   -> n -* m
+n |-| m =
+  case n < m of
+    S O -> m -* n
+    O   -> n -* m
 
 absDiff :: Nat -> Nat -> Nat
 absDiff = (|-|)
@@ -158,6 +161,7 @@ lo :: Nat -> Nat -> Nat
 lo O _ = undefined
 lo (S O) _ = undefined
 lo _ O = undefined
-lo n m = case m < n of
-           S O -> O
-           O   -> S O + lo n (m / n)
+lo n m =
+  case m < n of
+    S O -> O
+    O   -> S O + lo n (m / n)
