@@ -43,7 +43,7 @@ isZero n = no
 -- Predecessor
 -- We define zero's pred to be zero
 pred :: Nat -> Nat
-pred O = O
+pred O = zero
 pred (S n) = n
 
 -- Even
@@ -63,7 +63,7 @@ odd n = isZero (even n)
 -- It behaves like subtraction, except that it returns 0 when "normal" subtraction would return a negative number.
 (-*) :: Nat -> Nat -> Nat
 n -* O = n
-O -* _ = O
+O -* _ = zero
 (S n) -* (S m) = n -* m
 
 monus :: Nat -> Nat -> Nat
@@ -73,14 +73,14 @@ infixl 6 -*
 
 -- Multiplication
 (*) :: Nat -> Nat -> Nat
-_ * O = O
+_ * O = zero
 n * (S m) = (n * m) + n
 
 infixl 7 *
 
 -- Exponentiation
 (^) :: Nat -> Nat -> Nat
-_ ^ O = S O
+_ ^ O = one
 n ^ (S m) = n ^ m * n
 
 infixr 8 ^
@@ -100,11 +100,11 @@ infix 4 <
 -- Quotient
 (/) :: Nat -> Nat -> Nat
 _ / O = undefined
-O / _ = O
+O / _ = zero
 n / m =
   case n < m of
-    S O -> O
-    O   -> S O + (n -* m) / m
+    S O -> zero
+    O   -> one + (n -* m) / m
 
 infixl 7 /
 
@@ -146,7 +146,7 @@ infixl 6 |-|
 
 -- Factorial
 fact :: Nat -> Nat
-fact O = S O
+fact O = one
 fact (S n) = S n * fact n
 
 -- Signum of a number (-1, 0, or 1)
@@ -163,5 +163,5 @@ lo (S O) _ = undefined
 lo _ O = undefined
 lo n m =
   case m < n of
-    S O -> O
-    O   -> S O + lo n (m / n)
+    S O -> zero
+    O   -> one + lo n (m / n)
