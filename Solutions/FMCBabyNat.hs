@@ -64,7 +64,7 @@ odd n = isZero (even n)
 (-*) :: Nat -> Nat -> Nat
 n -* O = n
 O -* _ = zero
-(S n) -* (S m) = n -* m
+S n -* S m = n -* m
 
 monus :: Nat -> Nat -> Nat
 monus = (-*)
