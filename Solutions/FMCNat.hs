@@ -80,17 +80,21 @@ eight = S seven
 ----------------------------------------------------------------
 
 isZero :: Nat -> Bool
-isZero = undefined
+isZero O = True
+isZero _ = False
 
 -- pred is the predecessor but we define zero's to be zero
 pred :: Nat -> Nat
-pred = undefined
+pred O     = O
+pred (S n) = n
 
 even :: Nat -> Bool
-even = undefined
+even O         = True
+even (S O)     = False
+even (S (S n)) = even n
 
 odd :: Nat -> Bool
-odd = undefined
+odd n = not (even n)
 
 ----------------------------------------------------------------
 -- operations
