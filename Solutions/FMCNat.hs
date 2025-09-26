@@ -64,16 +64,18 @@ instance Ord Nat where
 -- some sugar
 ----------------------------------------------------------------
 
-zero, one, two, three, four, five, six, seven, eight :: Nat
-zero = O
-one = S zero
-two = S one
+zero, one, two, three, four, five, six, seven, eight, nine, ten :: Nat
+zero  = O
+one   = S zero
+two   = S one
 three = S two
-four = S three
-five = S four
-six = S five
+four  = S three
+five  = S four
+six   = S five
 seven = S six
 eight = S seven
+nine  = S eight
+ten   = S nine
 
 ----------------------------------------------------------------
 -- internalized predicates
