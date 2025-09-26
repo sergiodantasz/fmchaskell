@@ -35,10 +35,13 @@ data Nat where
 instance Show Nat where
   -- zero  should be shown as O
   -- three should be shown as SSSO
-  show = undefined
+  show O     = "O"
+  show (S n) = "S" ++ show n
 
 instance Eq Nat where
-  (==) = undefined
+  O   == O   = True
+  S n == S m = n == m  -- If n and m are equal, both can be reduced to zero and fall into the first case
+  _   == _   = False
 
 instance Ord Nat where
   (<=) = undefined
