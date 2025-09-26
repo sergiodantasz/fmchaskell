@@ -44,15 +44,21 @@ instance Eq Nat where
   _   == _   = False
 
 instance Ord Nat where
-  (<=) = undefined
+  O   <= _   = True
+  S _ <= O   = False
+  S n <= S m = n <= m
 
   -- Ord does not REQUIRE defining min and max.
   -- Howevener, you should define them WITHOUT using (<=).
   -- Both are binary functions: max m n = ..., etc.
 
-  min = undefined
+  min O _         = O
+  min _ O         = O
+  min (S n) (S m) = S (min n m)
 
-  max = undefined
+  max O n         = n
+  max n O         = n
+  max (S n) (S m) = S (max n m)
 
 ----------------------------------------------------------------
 -- some sugar
@@ -175,7 +181,7 @@ fromNat = undefined
 instance Num Nat where
   (+) = (<+>)
   (*) = (<*>)
-  (-) = (<->)
+  -- (-) = (<->)
   abs n = n
   signum = sg
   fromInteger x
