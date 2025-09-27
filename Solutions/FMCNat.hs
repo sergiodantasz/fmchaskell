@@ -183,17 +183,22 @@ infix 4 <|>
 -- distance between nats
 -- x `dist` y = |x - y|
 -- (Careful here: this - is the real minus operator!)
-dist :: Nat -> Nat -> Nat
-dist = undefined
+(|-|) :: Nat -> Nat -> Nat
+dist = (|-|)
 
-(|-|) = dist
+n |-| m =
+  if n < m
+    then m <-> n
+    else n <-> m
 
 factorial :: Nat -> Nat
-factorial = undefined
+factorial O = S O
+factorial (S n) = S n <*> factorial n
 
 -- signum of a number (-1, 0, or 1)
 sg :: Nat -> Nat
-sg = undefined
+sg O = O
+sg _ = S O
 
 -- lo b a is the floor of the logarithm base b of a
 lo :: Nat -> Nat -> Nat
