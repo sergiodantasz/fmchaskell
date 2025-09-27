@@ -173,9 +173,12 @@ eucdiv = undefined
 
 -- divides
 (<|>) :: Nat -> Nat -> Bool
-(<|>) = undefined
+O <|> n = isZero n
+n <|> m = isZero (m <%> n)
 
 divides = (<|>)
+
+infix 4 <|>
 
 -- distance between nats
 -- x `dist` y = |x - y|
