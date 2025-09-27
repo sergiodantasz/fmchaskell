@@ -21,26 +21,24 @@ import Prelude
     (||),
   )
 
--- Define everything that is undefined, without using standard Haskell functions.
--- (Hint: recursion is your friend!)
-
+-- New data type called Nat
 data Nat where
   O :: Nat
   S :: Nat -> Nat
 
 ----------------------------------------------------------------
--- typeclass implementations
+-- Typeclass implementations
 ----------------------------------------------------------------
 
 instance Show Nat where
-  -- zero  should be shown as O
+  -- zero should be shown as O
   -- three should be shown as SSSO
   show O     = "O"
   show (S n) = "S" ++ show n
 
 instance Eq Nat where
   O   == O   = True
-  S n == S m = n == m  -- If n and m are equal, both can be reduced to zero and fall into the first case
+  S n == S m = n == m
   _   == _   = False
 
 instance Ord Nat where
@@ -61,7 +59,7 @@ instance Ord Nat where
   max (S n) (S m) = S (max n m)
 
 ----------------------------------------------------------------
--- some sugar
+-- Syntatic sugar for numbers
 ----------------------------------------------------------------
 
 zero, one, two, three, four, five, six, seven, eight, nine, ten :: Nat
@@ -78,41 +76,44 @@ nine  = S eight
 ten   = S nine
 
 ----------------------------------------------------------------
--- internalized predicates
+-- Internalized predicates
 ----------------------------------------------------------------
 
+-- Is zero
 isZero :: Nat -> Bool
 isZero O = True
 isZero _ = False
 
--- pred is the predecessor but we define zero's to be zero
+-- Predecessor
+-- (We define zero's pred to be zero.)
 pred :: Nat -> Nat
 pred O     = O
 pred (S n) = n
 
+-- Even
 even :: Nat -> Bool
 even O         = True
 even (S O)     = False
 even (S (S n)) = even n
 
+-- Odd
 odd :: Nat -> Bool
 odd n = not (even n)
 
 ----------------------------------------------------------------
--- operations
+-- Operations
 ----------------------------------------------------------------
 
--- addition
+-- Addition
 (<+>) :: Nat -> Nat -> Nat
 n <+> O   = n
 n <+> S m = S (n + m)
 
 infixl 6 <+>
 
--- This is called the dotminus or monus operator
--- (also: proper subtraction, arithmetic subtraction, ...).
--- It behaves like subtraction, except that it returns 0
--- when "normal" subtraction would return a negative number.
+-- Monus
+-- This is called the dotminus or monus operator (also: proper subtraction, arithmetic subtraction, ...).
+-- It behaves like subtraction, except that it returns 0 when "normal" subtraction would return a negative number.
 monus :: Nat -> Nat -> Nat
 monus = (<->)
 
@@ -123,7 +124,7 @@ S n <-> S m = n <-> m
 
 infixl 6 <->
 
--- multiplication
+-- Multiplication
 times :: Nat -> Nat -> Nat
 times = (<*>)
 
@@ -133,7 +134,7 @@ n <*> S m = n <*> m + n
 
 infixl 7 <*>
 
--- power / exponentiation
+-- Power / Exponentiation
 pow :: Nat -> Nat -> Nat
 pow = (<^>)
 
@@ -146,7 +147,10 @@ n <^> S m = n <^> m * n
 
 infixr 8 <^>
 
--- quotient
+-- Quotient
+quot :: Nat -> Nat -> Nat
+quot = (</>)
+
 (</>) :: Nat -> Nat -> Nat
 _ </> O = undefined
 O </> _ = O
@@ -157,7 +161,10 @@ n </> m =
 
 infixl 7 </>
 
--- remainder
+-- Remainder
+rem :: Nat -> Nat -> Nat
+rem = (</>)
+
 (<%>) :: Nat -> Nat -> Nat
 _ <%> O = undefined
 n <%> m =
@@ -167,25 +174,27 @@ n <%> m =
 
 infixl 7 <%>
 
--- euclidean division
+-- Euclidean division
 eucdiv :: (Nat, Nat) -> (Nat, Nat)
 eucdiv = undefined
 
--- divides
+-- Divides
+divides :: Nat -> Nat -> Bool
+divides = (<|>)
+
 (<|>) :: Nat -> Nat -> Bool
 O <|> n = isZero n
 n <|> m = isZero (m <%> n)
 
-divides = (<|>)
-
 infix 4 <|>
 
--- distance between nats
--- x `dist` y = |x - y|
--- (Careful here: this - is the real minus operator!)
-(|-|) :: Nat -> Nat -> Nat
+-- Distance
+-- It's the distance between nats, given by x `dist` y = |x - y|.
+-- (Careful here: this (-) is the real minus operator!)
+dist :: Nat -> Nat -> Nat
 dist = (|-|)
 
+(|-|) :: Nat -> Nat -> Nat
 n |-| m =
   if n < m
     then m <-> n
@@ -193,15 +202,19 @@ n |-| m =
 
 infixl 6 |-|
 
+-- Factorial
 factorial :: Nat -> Nat
 factorial O = S O
 factorial (S n) = S n <*> factorial n
 
--- signum of a number (-1, 0, or 1)
+-- Signum
+-- The signum of a number can be: -1 for negative numbers, 0 for zero, and 1 for positive numbers.
+-- (We won't use -1 because we're working only with the naturals!)
 sg :: Nat -> Nat
 sg O = O
 sg _ = S O
 
+-- Logarithm
 -- lo b a is the floor of the logarithm base b of a
 lo :: Nat -> Nat -> Nat
 lo O _ = undefined
@@ -213,7 +226,7 @@ lo n m =
     else S (lo n (m </> n))
 
 ----------------------------------------------------------------
--- Num & Integral fun
+-- Num & Integral
 ----------------------------------------------------------------
 
 -- For the following functions we need Num(..).
@@ -225,7 +238,7 @@ toNat = undefined
 fromNat :: (Integral a) => Nat -> a
 fromNat = undefined
 
--- Voilá: we can now easily make Nat an instance of Num.
+-- Voilà: we can now easily make Nat an instance of Num.
 instance Num Nat where
   (+) = (<+>)
   (*) = (<*>)
