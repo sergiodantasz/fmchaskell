@@ -104,34 +104,47 @@ odd n = not (even n)
 
 -- addition
 (<+>) :: Nat -> Nat -> Nat
-(<+>) = undefined
+n <+> O = n
+n <+> S m = S (n + m)
+
+infixl 6 <+>
 
 -- This is called the dotminus or monus operator
 -- (also: proper subtraction, arithmetic subtraction, ...).
 -- It behaves like subtraction, except that it returns 0
 -- when "normal" subtraction would return a negative number.
 monus :: Nat -> Nat -> Nat
-monus = undefined
+monus = (<->)
 
-(-*) :: Nat -> Nat -> Nat
-(-*) = undefined
+(<->) :: Nat -> Nat -> Nat
+n <-> O = n
+O <-> _ = O
+S n <-> S m = n <-> m
+
+infixl 6 <->
 
 -- multiplication
 times :: Nat -> Nat -> Nat
-times = undefined
+times = (<*>)
 
 (<*>) :: Nat -> Nat -> Nat
-(<*>) = times
+n <*> O = O
+n <*> S m = n <*> m + n
+
+infixl 7 <*>
 
 -- power / exponentiation
 pow :: Nat -> Nat -> Nat
-pow = undefined
+pow = (<^>)
 
 exp :: Nat -> Nat -> Nat
-exp = undefined
+exp = (<^>)
 
 (<^>) :: Nat -> Nat -> Nat
-(<^>) = undefined
+_ <^> O = S O
+n <^> S m = n <^> m * n
+
+infixr 8 <^>
 
 -- quotient
 (</>) :: Nat -> Nat -> Nat
@@ -187,7 +200,7 @@ fromNat = undefined
 instance Num Nat where
   (+) = (<+>)
   (*) = (<*>)
-  -- (-) = (<->)
+  (-) = (<->)
   abs n = n
   signum = sg
   fromInteger x
