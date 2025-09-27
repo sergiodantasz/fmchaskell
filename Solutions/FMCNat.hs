@@ -104,7 +104,7 @@ odd n = not (even n)
 
 -- addition
 (<+>) :: Nat -> Nat -> Nat
-n <+> O = n
+n <+> O   = n
 n <+> S m = S (n + m)
 
 infixl 6 <+>
@@ -117,8 +117,8 @@ monus :: Nat -> Nat -> Nat
 monus = (<->)
 
 (<->) :: Nat -> Nat -> Nat
-n <-> O = n
-O <-> _ = O
+n   <-> O   = n
+O   <-> _   = O
 S n <-> S m = n <-> m
 
 infixl 6 <->
@@ -128,7 +128,7 @@ times :: Nat -> Nat -> Nat
 times = (<*>)
 
 (<*>) :: Nat -> Nat -> Nat
-n <*> O = O
+n <*> O   = O
 n <*> S m = n <*> m + n
 
 infixl 7 <*>
@@ -141,18 +141,31 @@ exp :: Nat -> Nat -> Nat
 exp = (<^>)
 
 (<^>) :: Nat -> Nat -> Nat
-_ <^> O = S O
+_ <^> O   = S O
 n <^> S m = n <^> m * n
 
 infixr 8 <^>
 
 -- quotient
 (</>) :: Nat -> Nat -> Nat
-(</>) = undefined
+_ </> O = undefined
+O </> _ = O
+n </> m =
+  if n < m
+    then O
+    else S ((n <-> m) </> m)
+
+infixl 7 </>
 
 -- remainder
 (<%>) :: Nat -> Nat -> Nat
-(<%>) = undefined
+_ <%> O = undefined
+n <%> m =
+  if n < m
+    then n
+    else (n <-> m) <%> m
+
+infixl 7 <%>
 
 -- euclidean division
 eucdiv :: (Nat, Nat) -> (Nat, Nat)
