@@ -191,6 +191,8 @@ n |-| m =
     then m <-> n
     else n <-> m
 
+infixl 6 |-|
+
 factorial :: Nat -> Nat
 factorial O = S O
 factorial (S n) = S n <*> factorial n
@@ -202,7 +204,13 @@ sg _ = S O
 
 -- lo b a is the floor of the logarithm base b of a
 lo :: Nat -> Nat -> Nat
-lo = undefined
+lo O _ = undefined
+lo (S O) _ = undefined
+lo _ O = undefined
+lo n m =
+  if m < n
+    then O
+    else S (lo n (m </> n))
 
 ----------------------------------------------------------------
 -- Num & Integral fun
