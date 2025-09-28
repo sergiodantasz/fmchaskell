@@ -245,7 +245,8 @@ toNat x
   | otherwise = S (toNat (x - 1))
 
 fromNat :: (Integral a) => Nat -> a
-fromNat = undefined
+fromNat O     = 0
+fromNat (S n) = 1 + fromNat n
 
 -- Voilà: we can now easily make Nat an instance of Num.
 instance Num Nat where
