@@ -10,6 +10,8 @@ import Prelude
     Num (..),
     Ord (..),
     Show (..),
+    fst,
+    snd,
     error,
     not,
     otherwise,
@@ -162,12 +164,7 @@ quot :: Nat -> Nat -> Nat
 quot = (</>)
 
 (</>) :: Nat -> Nat -> Nat
-_ </> O = undefined
-O </> _ = O
-n </> m =
-  if n < m
-    then O
-    else S ((n <-> m) </> m)
+n </> m = fst (eucdiv (n, m))
 
 infixl 7 </>
 
@@ -176,11 +173,7 @@ rem :: Nat -> Nat -> Nat
 rem = (</>)
 
 (<%>) :: Nat -> Nat -> Nat
-_ <%> O = undefined
-n <%> m =
-  if n < m
-    then n
-    else (n <-> m) <%> m
+n <%> m = snd (eucdiv (n, m))
 
 infixl 7 <%>
 
