@@ -147,6 +147,16 @@ n <^> S m = n <^> m * n
 
 infixr 8 <^>
 
+-- Euclidean division
+eucdiv :: (Nat, Nat) -> (Nat, Nat)
+eucdiv (_, O) = undefined
+eucdiv (n, m) =
+  if n < m
+    then (O, n)
+    else
+      case eucdiv (n <-> m, m) of
+        (q, r) -> (S q, r)
+
 -- Quotient
 quot :: Nat -> Nat -> Nat
 quot = (</>)
@@ -173,10 +183,6 @@ n <%> m =
     else (n <-> m) <%> m
 
 infixl 7 <%>
-
--- Euclidean division
-eucdiv :: (Nat, Nat) -> (Nat, Nat)
-eucdiv = undefined
 
 -- Divides
 divides :: Nat -> Nat -> Bool
