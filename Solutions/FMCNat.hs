@@ -239,7 +239,10 @@ lo n m =
 -- Do NOT use the following functions in the definitions above!
 
 toNat :: (Integral a) => a -> Nat
-toNat = undefined
+toNat x
+  | x < 0     = undefined
+  | x == 0    = O
+  | otherwise = S (toNat (x - 1))
 
 fromNat :: (Integral a) => Nat -> a
 fromNat = undefined
