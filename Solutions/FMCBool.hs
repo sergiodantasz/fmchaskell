@@ -18,9 +18,6 @@ import Prelude
     (.),
   )
 
--- Define everything that is undefined, without using standard Haskell functions.
--- (Hint: recursion is your friend!)
-
 data Bool = False | True
 
 instance Show Bool where
@@ -30,6 +27,7 @@ instance Show Bool where
 instance Enum Bool where
   toEnum 0 = False
   toEnum 1 = True
+  toEnum _ = undefined
 
   fromEnum False = 0
   fromEnum True  = 1
