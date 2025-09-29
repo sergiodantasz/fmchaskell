@@ -45,7 +45,10 @@ infixr 3 &&
 
 -- Disjunction (OR)
 (||) :: Bool -> Bool -> Bool
-(||) = undefined
+True  || True  = True
+True  || False = True
+False || True  = True
+False || False = False
 
 infixr 2 ||
 
