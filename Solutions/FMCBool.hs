@@ -77,8 +77,8 @@ not False = True
 
 -- if-then-else expression
 ifThenElse :: Bool -> a -> a -> a
-ifThenElse True  thenVal elseVal = thenVal
-ifThenElse False thenVal elseVal = elseVal
+ifThenElse True  thenVal _elseVal = thenVal
+ifThenElse False _thenVal elseVal = elseVal
 
 -- Logical "implies"
 (==>) :: Bool -> Bool -> Bool
