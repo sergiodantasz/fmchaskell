@@ -18,8 +18,8 @@ curry :: ((a, b) -> c) -> (a -> b -> c)
 curry f x y = f (x, y)
 
 -- uncurry takes a currified function and returns its "traditional" binary version.
-uncurry :: undefined
-uncurry = undefined
+uncurry :: (a -> b -> c) -> ((a, b) -> c)
+uncurry f (x, y) = f x y
 
 -- flip takes a (currified) binary function
 -- and returns one that behaves the same but takes its arguments in the opposite order
