@@ -37,36 +37,28 @@ instance Enum Bool where
 -- Conjunction (AND)
 (&&) :: Bool -> Bool -> Bool
 True  && True  = True
-True  && False = False
-False && True  = False
-False && False = False
+_     && _     = False
 
 infixr 3 &&
 
 -- Disjunction (OR)
 (||) :: Bool -> Bool -> Bool
-True  || True  = True
-True  || False = True
-False || True  = True
 False || False = False
+_     || _     = True
 
 infixr 2 ||
 
 -- NAND (Sheffer stroke)
 (/|\) :: Bool -> Bool -> Bool
 True  /|\ True  = False
-True  /|\ False = True
-False /|\ True  = True
-False /|\ False = True
+_     /|\ _     = True
 
 infixr 2 /|\
 
 -- NOR (aka: Peirce arrow or Quine dagger)
 (\|/) :: Bool -> Bool -> Bool
-True  \|/ True  = False
-True  \|/ False = False
-False \|/ True  = False
 False \|/ False = True
+_     \|/ _     = False
 
 infixr 2 \|/
 
