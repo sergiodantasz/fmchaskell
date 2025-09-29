@@ -24,7 +24,8 @@ import Prelude
 data Bool = False | True
 
 instance Show Bool where
-  show = undefined
+  show False = "False"
+  show True  = "True"
 
 instance Enum Bool where
   toEnum = undefined
