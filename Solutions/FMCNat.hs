@@ -109,7 +109,7 @@ odd n = not (even n)
 -- Addition
 (<+>) :: Nat -> Nat -> Nat
 n <+> O   = n
-n <+> S m = S (n + m)
+n <+> S m = S (n <+> m)
 
 infixl 6 <+>
 
@@ -132,7 +132,7 @@ times = (<*>)
 
 (<*>) :: Nat -> Nat -> Nat
 n <*> O   = O
-n <*> S m = n <*> m + n
+n <*> S m = n <*> m <+> n
 
 infixl 7 <*>
 
@@ -145,7 +145,7 @@ exp = (<^>)
 
 (<^>) :: Nat -> Nat -> Nat
 _ <^> O   = S O
-n <^> S m = n <^> m * n
+n <^> S m = n <^> m <*> n
 
 infixr 8 <^>
 
