@@ -77,12 +77,13 @@ not False = True
 
 -- if-then-else expression
 ifThenElse :: Bool -> a -> a -> a
-ifThenElse True  thenVal _elseVal = thenVal
-ifThenElse False _thenVal elseVal = elseVal
+ifThenElse True  thenVal  _elseVal = thenVal
+ifThenElse False _thenVal elseVal  = elseVal
 
 -- Logical "implies"
 (==>) :: Bool -> Bool -> Bool
-(==>) = undefined
+True ==> False = False
+_    ==> _     = True
 
 infixr 1 ==>
 
