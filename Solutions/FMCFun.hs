@@ -30,6 +30,7 @@ flip f x y = f y x
 (f . g) x = f (g x)
 
 -- (.>) is composition but in diagramatic notation (should be ; but Haskell forbids)
+(.>) :: (a -> b) -> (b -> c) -> (a -> c)
 (.>) = flip (.)
 
 -- ($) takes a function and a suitable argument and applies the function to the argument
