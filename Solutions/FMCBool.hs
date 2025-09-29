@@ -72,7 +72,8 @@ infixr 2 <=/=>
 
 -- Boolean negation
 not :: Bool -> Bool
-not = undefined
+not True  = False
+not False = True
 
 -- if-then-else expression
 ifThenElse :: Bool -> a -> a -> a
