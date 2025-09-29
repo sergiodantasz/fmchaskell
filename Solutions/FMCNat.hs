@@ -152,19 +152,20 @@ infixr 8 <^>
 -- Euclidean division
 eucdiv :: (Nat, Nat) -> (Nat, Nat)
 eucdiv (_, O) = undefined
-eucdiv (n, m) =
-  if n < m
-    then (O, n)
-    else
-      case eucdiv (n <-> m, m) of
-        (q, r) -> (S q, r)
+eucdiv (n, m)
+  | n < m     = (O, n)
+  | otherwise = (q, r)
+  where
+    q = S q'
+    r = r'
+    (q', r') = eucdiv (n <-> m, m)
 
 -- Quotient
 quot :: Nat -> Nat -> Nat
 quot = (</>)
 
 (</>) :: Nat -> Nat -> Nat
-n </> m = fst (eucdiv (n, m))
+n </> m = (fst . eucdiv) (n, m)
 
 infixl 7 </>
 
@@ -173,7 +174,7 @@ rem :: Nat -> Nat -> Nat
 rem = (</>)
 
 (<%>) :: Nat -> Nat -> Nat
-n <%> m = snd (eucdiv (n, m))
+n <%> m = (snd . eucdiv) (n, m)
 
 infixl 7 <%>
 
