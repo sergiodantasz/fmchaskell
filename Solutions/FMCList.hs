@@ -320,6 +320,14 @@ break p (x : xs)
      in (x : ys, zs)
 
 -- lines
+lines :: String -> [String]
+lines "" = []
+lines s =
+  let (firstLine, rem) = break (== '\n') s
+   in case rem of
+        "" -> [firstLine]
+        (_ : afterBreak) -> firstLine : lines afterBreak
+
 -- words
 -- unlines
 -- unwords
