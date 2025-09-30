@@ -213,6 +213,9 @@ or []       = False
 or (b : bs) = b || or bs
 
 -- concat
+concat :: [[a]] -> [a]
+concat []       = []
+concat (l : ls) = l ++ concat ls
 
 -- elem using the funciton 'any' above
 
