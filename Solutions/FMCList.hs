@@ -304,9 +304,14 @@ zipWith f (x : xs) (y : ys) = f x y : zipWith f xs ys
 
 -- transpose
 
+normalize :: String -> String
+normalize s = filter C.isAlphaNum (map C.toLower s)
+
 -- checks if the letters of a phrase form a palindrome (see below for examples)
 palindrome :: String -> Bool
-palindrome = undefined
+palindrome s =
+  let normS = normalize s
+   in normS == reverse normS
 
 {-
 
