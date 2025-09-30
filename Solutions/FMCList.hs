@@ -329,6 +329,13 @@ lines s =
         (_ : afterBreak) -> firstLine : lines afterBreak
 
 -- words
+words :: String -> [String]
+words s =
+  case dropWhile C.isSpace s of
+    "" -> []
+    s' -> let (word, rem) = break C.isSpace s'
+           in word : words rem
+
 -- unlines
 -- unwords
 
