@@ -97,10 +97,6 @@ product :: (Num a) => [a] -> a
 product []       = 0
 product (x : xs) = x * product xs
 
-reverse :: [a] -> [a]
-reverse []       = []
-reverse (x : xs) = reverse xs ++ [x]
-
 (++) :: [a] -> [a] -> [a]
 []       ++ ys = ys
 (x : xs) ++ ys = x : (xs ++ ys)
@@ -108,6 +104,10 @@ reverse (x : xs) = reverse xs ++ [x]
 -- right-associative for performance!
 -- (what?!)
 infixr 5 ++
+
+reverse :: [a] -> [a]
+reverse []       = []
+reverse (x : xs) = reverse xs ++ [x]
 
 -- (snoc is cons written backwards)
 snoc :: a -> [a] -> [a]
