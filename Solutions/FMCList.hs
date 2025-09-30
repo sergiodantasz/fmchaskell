@@ -178,7 +178,7 @@ init (x : xs) = x : init xs
 
 -- inits
 inits :: [a] -> [[a]]
-inits []       = [[]]
+inits [] = [[]]
 inits xs = xs : inits (init xs)
 
 -- subsequences
@@ -273,6 +273,8 @@ isInfixOf _ [] = False
 isInfixOf xs (y : ys) = isPrefixOf xs (y : ys) || isInfixOf xs ys
 
 -- isSuffixOf
+isSufixOf :: Eq a => [a] -> [a] -> Bool
+isSufixOf xs ys = isPrefixOf (reverse xs) (reverse ys)
 
 -- zip
 -- zipWith
