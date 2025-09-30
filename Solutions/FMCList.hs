@@ -177,6 +177,9 @@ init [_]      = []
 init (x : xs) = x : init xs
 
 -- inits
+inits :: [a] -> [[a]]
+inits []       = [[]]
+inits xs = xs : inits (init xs)
 
 -- subsequences
 
