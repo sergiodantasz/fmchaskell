@@ -253,6 +253,9 @@ cycle [] = undefined
 cycle xs = xs ++ cycle xs
 
 -- repeat
+repeat :: a -> [a]
+repeat x = cycle [x]
+
 -- replicate
 
 -- isPrefixOf
