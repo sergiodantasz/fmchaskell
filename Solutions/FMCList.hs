@@ -140,6 +140,11 @@ maximum [x]      = x
 maximum (x : xs) = max x (maximum xs)
 
 -- take
+take :: (Integral i) => i -> [a] -> [a]
+take 0 _        = []
+take _ []       = []
+take x (y : ys) = y : take (x - 1) ys
+
 -- drop
 
 -- takeWhile
