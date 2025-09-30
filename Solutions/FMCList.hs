@@ -311,6 +311,13 @@ splitAt n (x : xs) =
    in (x : leftPart, rightPart)
 
 -- break
+break :: (a -> Bool) -> [a] -> ([a], [a])
+break _ [] = ([], [])
+break p (x : xs)
+  | p x       = ([], x : xs)
+  | otherwise =
+    let (ys, zs) = break p xs
+     in (x : ys, zs)
 
 -- lines
 -- words
