@@ -223,6 +223,11 @@ elem x = any (== x)
 
 -- elem': same as elem but elementary definition
 -- (without using other functions except (==))
+elem' :: Eq a => a -> [a] -> Bool
+elem' _ [] = False
+elem' x (y : ys)
+  | x == y    = True
+  | otherwise = elem' x ys
 
 -- (!!)
 
