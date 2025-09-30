@@ -334,9 +334,11 @@ lines s =
 
 -- transpose
 
+-- normalize
 normalize :: String -> String
 normalize s = filter C.isAlphaNum (map C.toLower s)
 
+-- palindrome
 -- checks if the letters of a phrase form a palindrome (see below for examples)
 palindrome :: String -> Bool
 palindrome s =
