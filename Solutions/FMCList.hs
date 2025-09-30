@@ -203,7 +203,14 @@ all p (x : xs)
   | otherwise = False
 
 -- and
+and :: [Bool] -> Bool
+and []       = True
+and (b : bs) = b && and bs
+
 -- or
+or :: [Bool] -> Bool
+or []       = False
+or (b : bs) = b || or bs
 
 -- concat
 
