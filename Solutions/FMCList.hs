@@ -152,6 +152,12 @@ drop _ []       = []
 drop x (_ : ys) = drop (x - 1) ys
 
 -- takeWhile
+takeWhile :: (a -> Bool) -> [a] -> [a]
+takeWhile _ [] = []
+takeWhile p (x : xs)
+  | p x       = x : takeWhile p xs
+  | otherwise = []
+
 -- dropWhile
 
 -- tails
