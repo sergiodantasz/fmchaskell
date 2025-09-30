@@ -119,16 +119,25 @@ snoc x (y : ys) = y : snoc x ys
 
 -- different implementation of (++)
 (+++) :: [a] -> [a] -> [a]
-xs +++ [] = xs
-xs +++ [y] = xs <: y
+xs +++ []       = xs
+xs +++ [y]      = xs <: y
 xs +++ (y : ys) = (xs +++ [y]) +++ ys
 
 -- left-associative for performance!
 -- (hmm?!)
 infixl 5 +++
 
--- minimum :: Ord a => [a] -> a
--- maximum :: Ord a => [a] -> a
+-- minimum
+minimum :: Ord a => [a] -> a
+minimum []       = undefined
+minimum [x]      = x
+minimum (x : xs) = min x (minimum xs)
+
+-- maximum
+maximum :: Ord a => [a] -> a
+maximum []       = undefined
+maximum [x]      = x
+maximum (x : xs) = max x (maximum xs)
 
 -- take
 -- drop
