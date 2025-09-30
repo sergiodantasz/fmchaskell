@@ -236,6 +236,12 @@ elem' x (y : ys)
 (_ : xs) !! i = xs !! (i - 1)
 
 -- filter
+filter :: (a -> Bool) -> [a] -> [a]
+filter _ [] = []
+filter p (x : xs)
+  | p x       = x : filter p xs
+  | otherwise = filter p xs
+
 -- map
 map :: (a -> b) -> [a] -> [b]
 map _ []       = []
