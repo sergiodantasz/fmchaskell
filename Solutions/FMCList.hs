@@ -302,6 +302,13 @@ nub (x : xs) = x : nub (filter (x /=) xs)
 -- splitAt
 -- what is the problem with the following?:
 -- splitAt n xs  =  (take n xs, drop n xs)
+-- the problem is performance! the function iterates through the list two times.
+splitAt :: Int -> [a] -> ([a], [a])
+splitAt 0 xs = ([], xs)
+splitAt _ [] = ([], [])
+splitAt n (x : xs) =
+  let (leftPart, rightPart) = splitAt (n - 1) xs
+   in (x : leftPart, rightPart)
 
 -- break
 
