@@ -34,8 +34,8 @@ instance Enum Bool where
 
 -- Conjunction (AND)
 (&&) :: Bool -> Bool -> Bool
-True  && True  = True
-_     && _     = False
+True && True = True
+_    && _    = False
 
 infixr 3 &&
 
@@ -48,8 +48,8 @@ infixr 2 ||
 
 -- NAND (Sheffer stroke)
 (/|\) :: Bool -> Bool -> Bool
-True  /|\ True  = False
-_     /|\ _     = True
+True /|\ True = False
+_    /|\ _    = True
 
 infixr 2 /|\
 
