@@ -230,6 +230,10 @@ elem' x (y : ys)
   | otherwise = elem' x ys
 
 -- (!!)
+(!!) :: [a] -> Int -> a
+[]       !! _ = undefined
+(x : _)  !! 0 = x
+(_ : xs) !! i = xs !! (i - 1)
 
 -- filter
 -- map
