@@ -295,6 +295,9 @@ intercalate _ [ys] = ys
 intercalate xs (ys : yss) = ys ++ xs ++ intercalate xs yss
 
 -- nub
+nub :: Eq a => [a] -> [a]
+nub [] = []
+nub (x : xs) = x : nub (filter (x /=) xs)
 
 -- splitAt
 -- what is the problem with the following?:
