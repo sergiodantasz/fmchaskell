@@ -262,11 +262,16 @@ replicate n x = take n (repeat x)
 
 -- isPrefixOf
 isPrefixOf :: Eq a => [a] -> [a] -> Bool
-isPrefixOf [] ys = True
-isPrefixOf xs [] = False
+isPrefixOf [] _ = True
+isPrefixOf _ [] = False
 isPrefixOf (x : xs) (y : ys) = x == y && isPrefixOf xs ys
 
 -- isInfixOf
+isInfixOf :: Eq a => [a] -> [a] -> Bool
+isInfixOf [] _ = True
+isInfixOf _ [] = False
+isInfixOf xs (y : ys) = isPrefixOf xs (y : ys) || isInfixOf xs ys
+
 -- isSuffixOf
 
 -- zip
