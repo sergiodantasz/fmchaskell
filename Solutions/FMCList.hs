@@ -189,7 +189,18 @@ subsequences (x : xs) =
    in tailSubs ++ map (x :) tailSubs
 
 -- any
+any :: (a -> Bool) -> [a] -> Bool
+any _ [] = False
+any p (x : xs)
+  | p x       = True
+  | otherwise = any p xs
+
 -- all
+all :: (a -> Bool) -> [a] -> Bool
+all _ [] = True
+all p (x : xs)
+  | p x       = all p xs
+  | otherwise = False
 
 -- and
 -- or
