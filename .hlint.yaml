@@ -1,1 +1,3 @@
 - ignore: { name: "Use foldr" }
+- ignore: { name: "Use infix" }
+- ignore: { name: "Use isSuffixOf" }
