@@ -218,6 +218,8 @@ concat []       = []
 concat (l : ls) = l ++ concat ls
 
 -- elem using the funciton 'any' above
+elem :: Eq a => a -> [a] -> Bool
+elem x = any (== x)
 
 -- elem': same as elem but elementary definition
 -- (without using other functions except (==))
