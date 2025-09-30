@@ -171,6 +171,11 @@ tails []       = [[]]
 tails (x : xs) = (x : xs) : tails xs
 
 -- init
+init :: [a] -> [a]
+init []       = undefined
+init [_]      = []
+init (x : xs) = x : init xs
+
 -- inits
 
 -- subsequences
