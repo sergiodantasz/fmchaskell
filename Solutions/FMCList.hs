@@ -338,10 +338,11 @@ words s =
 
 -- unlines
 unlines :: [String] -> String
-unlines [] = ""
 unlines s = intercalate "\n" s ++ "\n"
 
 -- unwords
+unwords :: [String] -> String
+unwords = intercalate " "
 
 -- transpose
 
