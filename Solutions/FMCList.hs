@@ -248,6 +248,10 @@ map _ []       = []
 map f (x : xs) = f x : map f xs
 
 -- cycle
+cycle :: [a] -> [a]
+cycle [] = undefined
+cycle xs = xs ++ cycle xs
+
 -- repeat
 -- replicate
 
