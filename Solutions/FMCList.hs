@@ -337,6 +337,10 @@ words s =
            in word : words rem
 
 -- unlines
+unlines :: [String] -> String
+unlines [] = ""
+unlines s = intercalate "\n" s ++ "\n"
+
 -- unwords
 
 -- transpose
