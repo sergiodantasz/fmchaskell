@@ -146,6 +146,10 @@ take _ []       = []
 take x (y : ys) = y : take (x - 1) ys
 
 -- drop
+drop :: (Integral i) => i -> [a] -> [a]
+drop 0 xs       = xs
+drop _ []       = []
+drop x (_ : ys) = drop (x - 1) ys
 
 -- takeWhile
 -- dropWhile
