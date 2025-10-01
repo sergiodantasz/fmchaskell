@@ -270,7 +270,7 @@ isPrefixOf (x : xs) (y : ys) = x == y && isPrefixOf xs ys
 isInfixOf :: Eq a => [a] -> [a] -> Bool
 isInfixOf [] _ = True
 isInfixOf _ [] = False
-isInfixOf xs ys = isPrefixOf xs ys || isInfixOf xs ys
+isInfixOf xs ys@(y : ys') = isPrefixOf xs ys || isInfixOf xs ys'
 
 -- isSuffixOf
 isSuffixOf :: Eq a => [a] -> [a] -> Bool
