@@ -145,9 +145,9 @@ absDiff = (|-|)
 infixl 6 |-|
 
 -- Factorial
-fact :: Nat -> Nat
-fact O = one
-fact (S n) = S n * fact n
+factorial :: Nat -> Nat
+factorial O = one
+factorial (S n) = S n * factorial n
 
 -- Signum of a number (-1, 0, or 1)
 -- (We won't use -1 because we're working only with the naturals!)
