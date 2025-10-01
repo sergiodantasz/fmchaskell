@@ -345,6 +345,13 @@ unwords :: [String] -> String
 unwords = intercalate " "
 
 -- transpose
+transpose :: [[a]] -> [[a]]
+transpose [] = []
+transpose matrix =
+  let nonEmptyRows = filter (not . null) matrix
+   in if null nonEmptyRows
+        then []
+        else map head nonEmptyRows : transpose (map tail nonEmptyRows)
 
 -- normalize
 normalize :: String -> String
