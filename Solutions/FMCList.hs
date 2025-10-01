@@ -273,8 +273,8 @@ isInfixOf _ [] = False
 isInfixOf xs ys = isPrefixOf xs ys || isInfixOf xs ys
 
 -- isSuffixOf
-isSufixOf :: Eq a => [a] -> [a] -> Bool
-isSufixOf xs ys = reverse xs `isPrefixOf` reverse ys
+isSuffixOf :: Eq a => [a] -> [a] -> Bool
+isSuffixOf xs ys = reverse xs `isPrefixOf` reverse ys
 
 -- zip
 zip :: [a] -> [b] -> [(a, b)]
